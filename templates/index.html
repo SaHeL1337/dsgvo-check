@@ -1,10 +1,76 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- head definitions go here -->
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+            }
+            input {
+                padding: 15px;
+                width: 200px;
+            }
+            button {
+                padding: 15px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                cursor: pointer;
+            }
+            form {
+                margin-top: 20px;
+            }
+
+            .container {
+                text-align: center;
+                width:100%;
+            }
+
+            #result-content{
+                text-align: left;
+                margin-top: 20px;
+            }
+
+            .crawledUrl{
+                font-weight: bold;
+                background: #003049;
+                padding: 15px;
+                color: #fff
+            }
+
+            .externalResource{
+                background: #fdf0d5;
+                font-weight: normal;
+                padding: 5px;
+                margin-bottom: 15px;
+            }
+
+        </style>
+
     </head>
     <body>
-        hello there2
-        <!-- the content goes here -->
+        <h1>Webcrawler</h1>
+        <div id="container" class="container">
+            <form id="form" method="post" action="/crawl">
+                <label for="url">URL:</label>
+                <input type="text" id="url" name="url" value="{{baseUrl}}" />   
+                <button id="start">Start</button>
+            </form>
+        </div>
+        <div id="result" class="container">
+            <h2>Results for {{baseUrl}}</h2>
+            <div id="result-content">
+                crawled pages: {{pagesCrawled}} <br/>
+                external resources found: {{resultsFound}}
+
+                <h3>Found external resources</h3>
+                <a href="/delete?url={{baseUrl}}">delete results </a>
+                {% for url in results %}
+                    <div class="crawledUrl">{{url.crawledUrl}}</div>
+                    <div class="externalResource">
+                            <p>{{url.externalResources}}</p>
+                    </div>
+                {% endfor %}
+        </div>
     </body>
 </html>
